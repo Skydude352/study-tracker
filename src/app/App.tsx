@@ -1,9 +1,11 @@
+import { BrowserRouter } from 'react-router-dom'
+import AppRoutes from './routes'
+
 function App() {
   return (
-    <main className="app">
-      <h1>Study Tracker</h1>
-      <p>Plan your study time and keep making progress.</p>
-    </main>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   )
 }
 

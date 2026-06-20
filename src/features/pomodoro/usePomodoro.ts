@@ -1,4 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  createContext,
+  createElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+import type { ReactNode } from 'react'
 import { saveStudySession } from '../../data/storage'
 import type { StudySession } from '../../types/studySession'
 import type {
@@ -63,7 +72,7 @@ const initialState: PomodoroState = {
   completedFocusCycles: 0,
 }
 
-export function usePomodoro(): UsePomodoroResult {
+function usePomodoroEngine(): UsePomodoroResult {
   const [settings, setSettings] = useState(DEFAULT_POMODORO_SETTINGS)
   const [state, setState] = useState<PomodoroState>(initialState)
   const [lastCompletedSession, setLastCompletedSession] =
@@ -100,25 +109,24 @@ export function usePomodoro(): UsePomodoroResult {
       saveStudySession(session)
       setLastCompletedSession(session)
       focusStartedAtRef.current = null
-      deadlineRef.current =
-        Date.now() + getModeDuration(nextMode, settings) * 1000
+      deadlineRef.current = null
       setState({
         mode: nextMode,
         remainingSeconds: getModeDuration(nextMode, settings),
-        isRunning: true,
+        isRunning: false,
         isPaused: false,
         completedFocusCycles,
       })
       return
     }
 
-    focusStartedAtRef.current = timestamp
-    deadlineRef.current = Date.now() + settings.focusMinutes * 60 * 1000
+    focusStartedAtRef.current = null
+    deadlineRef.current = null
     setState((currentState) => ({
       ...currentState,
       mode: 'focus',
       remainingSeconds: settings.focusMinutes * 60,
-      isRunning: true,
+      isRunning: false,
       isPaused: false,
     }))
   }, [settings, state.completedFocusCycles, state.mode])
@@ -222,6 +230,36 @@ export function usePomodoro(): UsePomodoroResult {
     }))
   }, [state.isRunning, state.remainingSeconds])
 
+  const skip = useCallback(() => {
+    deadlineRef.current = null
+    focusStartedAtRef.current = null
+    setLastCompletedSession(null)
+
+    if (state.mode === 'focus') {
+      const completedFocusCycles = state.completedFocusCycles + 1
+      const nextMode = getNextPomodoroMode(
+        completedFocusCycles,
+        settings.cyclesBeforeLongBreak,
+      )
+      setState({
+        mode: nextMode,
+        remainingSeconds: getModeDuration(nextMode, settings),
+        isRunning: false,
+        isPaused: false,
+        completedFocusCycles,
+      })
+      return
+    }
+
+    setState((currentState) => ({
+      ...currentState,
+      mode: 'focus',
+      remainingSeconds: settings.focusMinutes * 60,
+      isRunning: false,
+      isPaused: false,
+    }))
+  }, [settings, state.completedFocusCycles, state.mode])
+
   const reset = useCallback(() => {
     deadlineRef.current = null
     focusStartedAtRef.current = null
@@ -260,7 +298,26 @@ export function usePomodoro(): UsePomodoroResult {
     pause,
     resume,
     stop,
+    skip,
     reset,
     updateSettings,
   }
+}
+
+const PomodoroContext = createContext<UsePomodoroResult | null>(null)
+
+export function PomodoroProvider({ children }: { children: ReactNode }) {
+  const pomodoro = usePomodoroEngine()
+
+  return createElement(PomodoroContext.Provider, { value: pomodoro }, children)
+}
+
+export function usePomodoro(): UsePomodoroResult {
+  const pomodoro = useContext(PomodoroContext)
+
+  if (!pomodoro) {
+    throw new Error('usePomodoro must be used inside PomodoroProvider')
+  }
+
+  return pomodoro
 }

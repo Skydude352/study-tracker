@@ -5,6 +5,7 @@ type PomodoroControlsProps = {
   onPause: () => void
   onResume: () => void
   onStop: () => void
+  onSkip: () => void
   onReset: () => void
 }
 
@@ -15,6 +16,7 @@ function PomodoroControls({
   onPause,
   onResume,
   onStop,
+  onSkip,
   onReset,
 }: PomodoroControlsProps) {
   return (
@@ -39,6 +41,9 @@ function PomodoroControls({
           Stop
         </button>
       )}
+      <button className="timer-button timer-button--secondary" onClick={onSkip}>
+        Skip
+      </button>
       <button className="timer-button timer-button--neutral" onClick={onReset}>
         Reset
       </button>

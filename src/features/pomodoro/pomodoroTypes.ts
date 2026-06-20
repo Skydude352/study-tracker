@@ -25,6 +25,7 @@ export type UsePomodoroResult = PomodoroState & {
   pause: () => void
   resume: () => void
   stop: () => void
+  skip: () => void
   reset: () => void
   updateSettings: (settings: PomodoroSettings) => void
 }

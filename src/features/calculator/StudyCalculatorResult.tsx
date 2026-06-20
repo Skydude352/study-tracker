@@ -35,7 +35,7 @@ function StudyCalculatorResult({ result }: StudyCalculatorResultProps) {
     <section className="calculator-result" aria-live="polite">
       <div className="calculator-result-heading">
         <p className="page-eyebrow">Estimate</p>
-        <h2>{result.topic || result.subject || 'Your study task'}</h2>
+        <h2>Your study task</h2>
       </div>
 
       <div className="calculator-metrics">

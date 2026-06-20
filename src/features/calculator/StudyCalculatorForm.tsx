@@ -38,32 +38,13 @@ function StudyCalculatorForm({
   return (
     <form className="calculator-form" onSubmit={submitForm} noValidate>
       <div className="calculator-form-grid">
-        <div className="form-field">
-          <label htmlFor="calculator-subject">Subject</label>
-          <input
-            id="calculator-subject"
-            value={values.subject}
-            onChange={updateField('subject')}
-            placeholder="e.g. Biology"
-          />
-        </div>
-        <div className="form-field">
-          <label htmlFor="calculator-topic">Topic</label>
-          <input
-            id="calculator-topic"
-            value={values.topic}
-            onChange={updateField('topic')}
-            placeholder="e.g. Cell structure"
-          />
-        </div>
-
         {numberFields.map((field) => (
           <div className="form-field" key={field.key}>
             <label htmlFor={`calculator-${field.key}`}>{field.label}</label>
             <input
               id={`calculator-${field.key}`}
               type="number"
-              min="0"
+              min="1"
               step="any"
               value={values[field.key]}
               onChange={updateField(field.key)}

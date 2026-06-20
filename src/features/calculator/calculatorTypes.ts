@@ -1,8 +1,6 @@
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'veryHard'
 
 export type CalculatorFormValues = {
-  subject: string
-  topic: string
   pages: string
   wordsPerPage: string
   wordsPerMinute: string
@@ -23,8 +21,6 @@ export type ExamStudyPlan = {
 }
 
 export type StudyCalculationResult = {
-  subject: string
-  topic: string
   totalWords: number
   baseTimeMinutes: number
   difficultyMultiplier: number

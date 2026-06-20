@@ -14,8 +14,6 @@ export const DIFFICULTY_MULTIPLIERS: Record<Difficulty, number> = {
 }
 
 export const DEFAULT_CALCULATOR_VALUES: CalculatorFormValues = {
-  subject: '',
-  topic: '',
   pages: '10',
   wordsPerPage: '350',
   wordsPerMinute: '150',
@@ -117,8 +115,6 @@ export function calculateStudyEstimate(
   const difficultyMultiplier = DIFFICULTY_MULTIPLIERS[values.difficulty]
   const estimatedStudyTimeMinutes = baseTimeMinutes * difficultyMultiplier
   const result: StudyCalculationResult = {
-    subject: values.subject.trim(),
-    topic: values.topic.trim(),
     totalWords,
     baseTimeMinutes,
     difficultyMultiplier,

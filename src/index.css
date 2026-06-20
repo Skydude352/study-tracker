@@ -720,6 +720,123 @@ select {
   font-size: 0.9rem;
 }
 
+.goal-settings-form {
+  margin-top: 2rem;
+  border: 1px solid #e3e8f2;
+  border-radius: 0.9rem;
+  padding: 1.5rem;
+  background: #f9faff;
+}
+
+.goal-input-grid,
+.goal-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.goal-input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.goal-input-row input,
+.goal-input-row select {
+  min-width: 0;
+  border: 1px solid #ccd4e3;
+  padding: 0.7rem 0.8rem;
+  background: #ffffff;
+}
+
+.goal-input-row input {
+  border-radius: 0.6rem 0 0 0.6rem;
+}
+
+.goal-input-row select {
+  border-left: 0;
+  border-radius: 0 0.6rem 0.6rem 0;
+}
+
+.goal-progress-grid {
+  margin-top: 1.25rem;
+}
+
+.goal-progress-card {
+  border: 1px solid #e3e8f2;
+  border-radius: 0.8rem;
+  padding: 1.25rem;
+  background: #f9faff;
+}
+
+.goal-progress-heading,
+.dashboard-goals-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.goal-progress-heading p,
+.goal-progress-heading strong,
+.goal-target {
+  margin: 0;
+}
+
+.goal-progress-heading p,
+.goal-target {
+  color: #63708a;
+  font-size: 0.8rem;
+}
+
+.goal-progress-heading strong {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.goal-progress-heading > span {
+  color: #315bd6;
+  font-weight: 750;
+}
+
+.goal-progress-bar {
+  height: 0.55rem;
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e3e8f2;
+}
+
+.goal-progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #315bd6;
+}
+
+.goal-target {
+  margin-top: 0.65rem;
+}
+
+.dashboard-goals-heading {
+  margin-top: 2rem;
+}
+
+.dashboard-goals-heading h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.dashboard-goals-heading a {
+  color: #315bd6;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.goal-progress-grid--dashboard {
+  margin-top: 1rem;
+}
+
 @media (max-width: 720px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -765,7 +882,9 @@ select {
   }
 
   .calculator-form-grid,
-  .calculator-metrics {
+  .calculator-metrics,
+  .goal-input-grid,
+  .goal-progress-grid {
     grid-template-columns: 1fr;
   }
 }

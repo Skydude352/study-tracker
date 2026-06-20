@@ -35,6 +35,7 @@ function PomodoroPage() {
             onPause={pomodoro.pause}
             onResume={pomodoro.resume}
             onStop={pomodoro.stop}
+            onSkip={pomodoro.skip}
             onReset={pomodoro.reset}
           />
           {pomodoro.lastCompletedSession && (

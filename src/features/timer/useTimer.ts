@@ -1,4 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  createContext,
+  createElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+import type { ReactNode } from 'react'
 import { saveStudySession } from '../../data/storage'
 import type {
   StudySession,
@@ -19,7 +28,7 @@ function createSessionId(): string {
     : `session-${Date.now()}-${Math.random().toString(16).slice(2)}`
 }
 
-export function useTimer(): UseTimerResult {
+function useTimerEngine(): UseTimerResult {
   const [timerState, setTimerState] = useState<TimerState>(initialTimerState)
   const [lastCompletedSession, setLastCompletedSession] =
     useState<StudySession | null>(null)
@@ -136,4 +145,22 @@ export function useTimer(): UseTimerResult {
     stop,
     lastCompletedSession,
   }
+}
+
+const TimerContext = createContext<UseTimerResult | null>(null)
+
+export function TimerProvider({ children }: { children: ReactNode }) {
+  const timer = useTimerEngine()
+
+  return createElement(TimerContext.Provider, { value: timer }, children)
+}
+
+export function useTimer(): UseTimerResult {
+  const timer = useContext(TimerContext)
+
+  if (!timer) {
+    throw new Error('useTimer must be used inside TimerProvider')
+  }
+
+  return timer
 }

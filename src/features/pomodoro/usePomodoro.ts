@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { saveStudySession } from '../../data/storage'
-import type {
-  StudySession,
-  StudySessionDetails,
-} from '../../types/studySession'
+import type { StudySession } from '../../types/studySession'
 import type {
   PomodoroMode,
   PomodoroSettings,
@@ -66,34 +63,25 @@ const initialState: PomodoroState = {
   completedFocusCycles: 0,
 }
 
-export function usePomodoro(
-  sessionDetails: StudySessionDetails,
-): UsePomodoroResult {
+export function usePomodoro(): UsePomodoroResult {
   const [settings, setSettings] = useState(DEFAULT_POMODORO_SETTINGS)
   const [state, setState] = useState<PomodoroState>(initialState)
   const [lastCompletedSession, setLastCompletedSession] =
     useState<StudySession | null>(null)
   const deadlineRef = useRef<number | null>(null)
   const focusStartedAtRef = useRef<string | null>(null)
-  const sessionDetailsRef = useRef(sessionDetails)
-
-  useEffect(() => {
-    sessionDetailsRef.current = sessionDetails
-  }, [sessionDetails])
-
   const completePhase = useCallback(() => {
     const completedAt = new Date()
     const timestamp = completedAt.toISOString()
 
     if (state.mode === 'focus') {
-      const details = sessionDetailsRef.current
       const durationSeconds = settings.focusMinutes * 60
       const session: StudySession = {
         id: createSessionId(),
-        title: details.title.trim() || 'Untitled Study Session',
-        subject: details.subject.trim(),
-        topic: details.topic.trim(),
-        notes: details.notes.trim(),
+        title: 'Pomodoro Focus Session',
+        subject: '',
+        topic: '',
+        notes: '',
         startTime:
           focusStartedAtRef.current ??
           new Date(completedAt.getTime() - durationSeconds * 1000).toISOString(),

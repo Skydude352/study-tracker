@@ -1,36 +1,19 @@
-import { useState } from 'react'
-import type { StudySessionDetails } from '../../types/studySession'
-import SessionForm from '../sessions/SessionForm'
 import PomodoroControls from './PomodoroControls'
 import PomodoroDisplay from './PomodoroDisplay'
 import PomodoroSettings from './PomodoroSettings'
 import { usePomodoro } from './usePomodoro'
 
-const emptySessionDetails: StudySessionDetails = {
-  title: '',
-  subject: '',
-  topic: '',
-  notes: '',
-}
-
 function PomodoroPage() {
-  const [sessionDetails, setSessionDetails] =
-    useState<StudySessionDetails>(emptySessionDetails)
-  const pomodoro = usePomodoro(sessionDetails)
+  const pomodoro = usePomodoro()
 
   return (
-    <section className="page page--wide">
+    <section className="pomodoro-section" aria-labelledby="pomodoro-heading">
       <p className="page-eyebrow">Focus cycles</p>
-      <h1>Pomodoro</h1>
+      <h2 id="pomodoro-heading">Pomodoro</h2>
       <p>Alternate focused study blocks with short, restorative breaks.</p>
 
       <div className="pomodoro-layout">
         <div>
-          <SessionForm
-            values={sessionDetails}
-            onChange={setSessionDetails}
-            idPrefix="pomodoro"
-          />
           <PomodoroSettings
             settings={pomodoro.settings}
             disabled={pomodoro.isRunning}

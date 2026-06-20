@@ -499,6 +499,23 @@ select {
   margin-top: 2rem;
 }
 
+.pomodoro-section {
+  margin-top: 3rem;
+  border-top: 1px solid #e3e8f2;
+  padding-top: 3rem;
+}
+
+.pomodoro-section h2 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  letter-spacing: -0.035em;
+}
+
+.pomodoro-section > p:not(.page-eyebrow) {
+  margin: 0.75rem 0 0;
+  color: #63708a;
+}
+
 .pomodoro-layout .session-form {
   margin-top: 0;
 }
@@ -578,6 +595,131 @@ select {
   font-weight: 650;
 }
 
+.calculator-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.calculator-form,
+.calculator-result {
+  align-self: start;
+  border: 1px solid #e3e8f2;
+  border-radius: 0.9rem;
+  padding: 1.5rem;
+  background: #f9faff;
+}
+
+.calculator-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.calculator-form select,
+.exam-date-section input {
+  width: 100%;
+  border: 1px solid #ccd4e3;
+  border-radius: 0.6rem;
+  padding: 0.7rem 0.8rem;
+  color: #172033;
+  background: #ffffff;
+}
+
+.form-error {
+  color: #b8323c;
+  font-size: 0.8rem;
+  font-weight: 650;
+}
+
+.exam-date-section {
+  margin: 1.5rem 0 0;
+  border: 1px solid #dce2ed;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.exam-date-section legend {
+  padding: 0 0.35rem;
+  font-weight: 750;
+}
+
+.exam-date-section small {
+  color: #63708a;
+  line-height: 1.5;
+}
+
+.calculator-submit {
+  width: 100%;
+  margin-top: 1.5rem;
+  border: 0;
+  border-radius: 0.65rem;
+  padding: 0.8rem 1rem;
+  color: #ffffff;
+  background: #315bd6;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.calculator-result-heading h2,
+.calculator-result-heading p {
+  margin: 0;
+}
+
+.calculator-result-heading h2 {
+  font-size: 1.4rem;
+}
+
+.calculator-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.calculator-metrics > div {
+  border-radius: 0.65rem;
+  padding: 1rem;
+  background: #ffffff;
+}
+
+.calculator-metrics span {
+  display: block;
+  color: #63708a;
+  font-size: 0.78rem;
+}
+
+.calculator-metrics strong {
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.exam-plan-result {
+  margin-top: 1rem;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  color: #184d35;
+  background: #e9f7ef;
+}
+
+.exam-plan-result h3,
+.exam-plan-result p {
+  margin: 0;
+}
+
+.exam-plan-result p {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.exam-plan-metrics {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 720px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -613,11 +755,17 @@ select {
 
   .dashboard-stats,
   .dashboard-columns,
-  .pomodoro-layout {
+  .pomodoro-layout,
+  .calculator-layout {
     grid-template-columns: 1fr;
   }
 
   .pomodoro-settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calculator-form-grid,
+  .calculator-metrics {
     grid-template-columns: 1fr;
   }
 }
@@ -632,6 +780,10 @@ select {
   }
 
   .pomodoro-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .calculator-layout {
     grid-template-columns: 1fr;
   }
 }

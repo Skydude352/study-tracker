@@ -3,7 +3,6 @@ import NavLink from './NavLink'
 const navigationItems = [
   { to: '/', label: 'Home', end: true },
   { to: '/timer', label: 'Timer' },
-  { to: '/pomodoro', label: 'Pomodoro' },
   { to: '/sessions', label: 'Sessions' },
   { to: '/dashboard', label: 'Dashboard' },
   { to: '/calculator', label: 'Study Calculator' },

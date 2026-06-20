@@ -3,7 +3,6 @@ import Layout from '../components/Layout'
 import CalculatorPage from '../pages/CalculatorPage'
 import DashboardPage from '../pages/DashboardPage'
 import HomePage from '../pages/HomePage'
-import GoalsPage from '../pages/GoalsPage'
 import SessionsPage from '../pages/SessionsPage'
 import TimerPage from '../pages/TimerPage'
 
@@ -15,7 +14,6 @@ function AppRoutes() {
         <Route path="timer" element={<TimerPage />} />
         <Route path="sessions" element={<SessionsPage />} />
         <Route path="dashboard" element={<DashboardPage />} />
-        <Route path="goals" element={<GoalsPage />} />
         <Route path="calculator" element={<CalculatorPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

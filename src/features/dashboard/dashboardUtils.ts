@@ -9,6 +9,9 @@ export type DashboardSummary = {
   totalTodaySeconds: number
   totalThisWeekSeconds: number
   totalAllTimeSeconds: number
+  sessionCountToday: number
+  sessionCountThisWeek: number
+  sessionCountAllTime: number
   subjectBreakdown: SubjectStudyTime[]
   mostStudiedSubject: SubjectStudyTime | null
   recentSessions: StudySession[]
@@ -92,6 +95,9 @@ export function calculateDashboardSummary(
     totalTodaySeconds: sumSessionDuration(sessionsToday),
     totalThisWeekSeconds: sumSessionDuration(sessionsThisWeek),
     totalAllTimeSeconds: sumSessionDuration(sessions),
+    sessionCountToday: sessionsToday.length,
+    sessionCountThisWeek: sessionsThisWeek.length,
+    sessionCountAllTime: sessions.length,
     subjectBreakdown,
     mostStudiedSubject: subjectBreakdown[0] ?? null,
     recentSessions: getRecentSessions(sessions),

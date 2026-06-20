@@ -5,7 +5,6 @@ const navigationItems = [
   { to: '/timer', label: 'Timer' },
   { to: '/sessions', label: 'Sessions' },
   { to: '/dashboard', label: 'Dashboard' },
-  { to: '/goals', label: 'Goals' },
   { to: '/calculator', label: 'Study Calculator' },
 ]
 

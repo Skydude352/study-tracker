@@ -351,8 +351,135 @@ select {
 
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
   gap: 1rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.feature-card {
+  display: grid;
+  gap: 0.4rem;
+  border: 1px solid #e3e8f2;
+  border-radius: 0.8rem;
+  padding: 1.25rem;
+  background: #f9faff;
+  text-decoration: none;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.feature-card:hover {
+  border-color: #315bd6;
+  transform: translateY(-1px);
+}
+
+.feature-card span {
+  color: #63708a;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.home-section {
+  margin-top: 3rem;
+  border-top: 1px solid #e3e8f2;
+  padding-top: 2.5rem;
+}
+
+.home-section h2 {
+  margin: 0;
+  font-size: 1.65rem;
+}
+
+.home-section > p:not(.page-eyebrow) {
+  color: #63708a;
+}
+
+.study-task-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-top: 1.25rem;
+}
+
+.study-task-entry input,
+.study-task-edit {
+  min-width: 0;
+  border: 1px solid #ccd4e3;
+  border-radius: 0.6rem 0 0 0.6rem;
+  padding: 0.75rem 0.85rem;
+}
+
+.study-task-entry button {
+  border: 0;
+  border-radius: 0 0.6rem 0.6rem 0;
+  padding: 0.75rem 1.1rem;
+  color: #ffffff;
+  background: #315bd6;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.study-task-list {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.study-task {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid #e3e8f2;
+  border-radius: 0.65rem;
+  padding: 0.8rem 1rem;
+  background: #f9faff;
+}
+
+.study-task--completed > span {
+  color: #7a8498;
+  text-decoration: line-through;
+}
+
+.study-task-edit {
+  border-radius: 0.45rem;
+  padding: 0.45rem 0.6rem;
+}
+
+.study-task-actions {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.study-task-actions button {
+  border: 0;
+  padding: 0;
+  color: #315bd6;
+  background: transparent;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.study-task-actions .study-task-delete {
+  color: #b8323c;
+}
+
+.study-task-empty {
+  margin: 1rem 0 0;
+  color: #7a8498;
+  font-size: 0.9rem;
+}
+
+.completed-tasks-heading {
+  margin: 2rem 0 0;
+  font-size: 1rem;
 }
 
 .stat-card,
@@ -884,8 +1011,17 @@ select {
   .calculator-form-grid,
   .calculator-metrics,
   .goal-input-grid,
-  .goal-progress-grid {
+  .goal-progress-grid,
+  .feature-grid {
     grid-template-columns: 1fr;
+  }
+
+  .study-task {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .study-task-actions {
+    grid-column: 2;
   }
 }
 

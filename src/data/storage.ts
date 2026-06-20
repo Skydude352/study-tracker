@@ -3,11 +3,14 @@ import type {
   StudySessionUpdates,
 } from '../types/studySession'
 import type { StudyGoals } from '../features/goals/goalTypes'
+import type { StudyTask } from '../types/studyTask'
 
 export const STUDY_SESSIONS_STORAGE_KEY = 'study-tracker:sessions'
 export const STUDY_SESSIONS_UPDATED_EVENT = 'study-tracker:sessions-updated'
 export const STUDY_GOALS_STORAGE_KEY = 'study-tracker:goals'
 export const STUDY_GOALS_UPDATED_EVENT = 'study-tracker:goals-updated'
+export const STUDY_TASKS_STORAGE_KEY = 'study-tracker:tasks'
+export const STUDY_TASKS_UPDATED_EVENT = 'study-tracker:tasks-updated'
 
 export const EMPTY_STUDY_GOALS: StudyGoals = {
   dailyGoalMinutes: null,
@@ -159,4 +162,65 @@ export function saveStudyGoals(goals: StudyGoals): boolean {
   } catch {
     return false
   }
+}
+
+function isStudyTask(value: unknown): value is StudyTask {
+  if (!value || typeof value !== 'object') return false
+  const task = value as Record<string, unknown>
+  return (
+    typeof task.id === 'string' &&
+    typeof task.text === 'string' &&
+    typeof task.completed === 'boolean' &&
+    typeof task.createdAt === 'string' &&
+    typeof task.updatedAt === 'string' &&
+    (task.completedAt === null || typeof task.completedAt === 'string')
+  )
+}
+
+export function getStudyTasks(): StudyTask[] {
+  try {
+    const storedValue = localStorage.getItem(STUDY_TASKS_STORAGE_KEY)
+    if (!storedValue) return []
+    const parsed: unknown = JSON.parse(storedValue)
+    return Array.isArray(parsed) ? parsed.filter(isStudyTask) : []
+  } catch {
+    return []
+  }
+}
+
+function writeStudyTasks(tasks: StudyTask[]): boolean {
+  try {
+    localStorage.setItem(STUDY_TASKS_STORAGE_KEY, JSON.stringify(tasks))
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event(STUDY_TASKS_UPDATED_EVENT))
+    }
+    return true
+  } catch {
+    return false
+  }
+}
+
+export function saveStudyTask(task: StudyTask): boolean {
+  return writeStudyTasks([...getStudyTasks(), task])
+}
+
+export function updateStudyTask(
+  taskId: string,
+  updates: Partial<Pick<StudyTask, 'text' | 'completed' | 'completedAt'>>,
+): StudyTask | null {
+  const tasks = getStudyTasks()
+  const index = tasks.findIndex(({ id }) => id === taskId)
+  if (index < 0) return null
+
+  const updatedTask: StudyTask = {
+    ...tasks[index],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  }
+  tasks[index] = updatedTask
+  return writeStudyTasks(tasks) ? updatedTask : null
+}
+
+export function deleteStudyTask(taskId: string): boolean {
+  return writeStudyTasks(getStudyTasks().filter(({ id }) => id !== taskId))
 }

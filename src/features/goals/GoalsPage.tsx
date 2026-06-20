@@ -31,9 +31,9 @@ function GoalsPage() {
   }
 
   return (
-    <section className="page page--wide">
+    <section className="home-section" aria-labelledby="study-goals-heading">
       <p className="page-eyebrow">Targets</p>
-      <h1>Study Goals</h1>
+      <h2 id="study-goals-heading">Study Goals</h2>
       <p>Set realistic daily and weekly targets and track your study time.</p>
 
       <GoalSettingsForm goals={goals} onSave={saveGoals} />

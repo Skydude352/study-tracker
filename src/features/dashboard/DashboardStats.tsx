@@ -6,6 +6,9 @@ type DashboardStatsProps = Pick<
   | 'totalTodaySeconds'
   | 'totalThisWeekSeconds'
   | 'totalAllTimeSeconds'
+  | 'sessionCountToday'
+  | 'sessionCountThisWeek'
+  | 'sessionCountAllTime'
   | 'mostStudiedSubject'
 >
 
@@ -13,12 +16,18 @@ function DashboardStats({
   totalTodaySeconds,
   totalThisWeekSeconds,
   totalAllTimeSeconds,
+  sessionCountToday,
+  sessionCountThisWeek,
+  sessionCountAllTime,
   mostStudiedSubject,
 }: DashboardStatsProps) {
   const stats = [
     { label: 'Today', value: formatStudyTime(totalTodaySeconds) },
     { label: 'This week', value: formatStudyTime(totalThisWeekSeconds) },
     { label: 'All time', value: formatStudyTime(totalAllTimeSeconds) },
+    { label: 'Sessions today', value: sessionCountToday.toString() },
+    { label: 'Sessions this week', value: sessionCountThisWeek.toString() },
+    { label: 'Sessions all time', value: sessionCountAllTime.toString() },
     {
       label: 'Top subject',
       value: mostStudiedSubject?.subject ?? 'None yet',

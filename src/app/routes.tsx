@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import CalculatorPage from '../pages/CalculatorPage'
 import DashboardPage from '../pages/DashboardPage'
 import HomePage from '../pages/HomePage'
+import PomodoroPage from '../pages/PomodoroPage'
 import SessionsPage from '../pages/SessionsPage'
 import TimerPage from '../pages/TimerPage'
 
@@ -12,6 +13,7 @@ function AppRoutes() {
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="timer" element={<TimerPage />} />
+        <Route path="pomodoro" element={<PomodoroPage />} />
         <Route path="sessions" element={<SessionsPage />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="calculator" element={<CalculatorPage />} />

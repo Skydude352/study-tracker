@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import SessionForm from '../features/sessions/SessionForm'
 import TimerControls from '../features/timer/TimerControls'
 import TimerDisplay from '../features/timer/TimerDisplay'
@@ -31,6 +32,9 @@ function TimerPage() {
       <p className="page-eyebrow">Focus</p>
       <h1>Timer</h1>
       <p>Start a normal study session and focus for as long as you need.</p>
+      <Link className="mode-link" to="/pomodoro">
+        Prefer focus and break cycles? Open Pomodoro
+      </Link>
 
       <SessionForm values={sessionDetails} onChange={setSessionDetails} />
 

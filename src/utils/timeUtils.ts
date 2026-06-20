@@ -42,3 +42,13 @@ export function formatStudyTime(totalSeconds: number): string {
 
   return `${hours}h ${minutes.toString().padStart(2, '0')}m`
 }
+
+export function formatCountdown(totalSeconds: number): string {
+  const safeSeconds = Math.max(0, Math.ceil(totalSeconds))
+  const minutes = Math.floor(safeSeconds / 60)
+  const seconds = safeSeconds % 60
+
+  return `${minutes.toString().padStart(2, '0')}:${seconds
+    .toString()
+    .padStart(2, '0')}`
+}

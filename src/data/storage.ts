@@ -4,6 +4,13 @@ import type {
 } from '../types/studySession'
 
 export const STUDY_SESSIONS_STORAGE_KEY = 'study-tracker:sessions'
+export const STUDY_SESSIONS_UPDATED_EVENT = 'study-tracker:sessions-updated'
+
+function notifyStudySessionsUpdated(): void {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(STUDY_SESSIONS_UPDATED_EVENT))
+  }
+}
 
 function isStudySession(value: unknown): value is StudySession {
   if (!value || typeof value !== 'object') {
@@ -32,6 +39,7 @@ function isStudySession(value: unknown): value is StudySession {
 function writeStudySessions(sessions: StudySession[]): boolean {
   try {
     localStorage.setItem(STUDY_SESSIONS_STORAGE_KEY, JSON.stringify(sessions))
+    notifyStudySessionsUpdated()
     return true
   } catch {
     return false
@@ -99,6 +107,7 @@ export function deleteStudySession(sessionId: string): boolean {
 export function clearStudySessions(): boolean {
   try {
     localStorage.removeItem(STUDY_SESSIONS_STORAGE_KEY)
+    notifyStudySessionsUpdated()
     return true
   } catch {
     return false

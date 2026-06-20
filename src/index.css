@@ -95,6 +95,10 @@ select {
   box-shadow: 0 14px 35px rgb(23 32 51 / 7%);
 }
 
+.page--wide {
+  max-width: 1080px;
+}
+
 .page-eyebrow {
   margin: 0 0 0.5rem;
   color: #315bd6;
@@ -322,6 +326,155 @@ select {
   text-align: center;
 }
 
+.dashboard-content {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.stat-card,
+.dashboard-panel {
+  border: 1px solid #e3e8f2;
+  border-radius: 0.8rem;
+  background: #f9faff;
+}
+
+.stat-card {
+  min-width: 0;
+  padding: 1.15rem;
+}
+
+.stat-card p,
+.stat-card span {
+  margin: 0;
+  color: #63708a;
+  font-size: 0.8rem;
+}
+
+.stat-card strong {
+  display: block;
+  overflow: hidden;
+  margin: 0.35rem 0;
+  font-size: 1.25rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.dashboard-panel {
+  padding: 1.25rem;
+}
+
+.dashboard-panel-heading,
+.subject-row-label,
+.recent-session,
+.recent-session-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dashboard-panel-heading h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.dashboard-panel-heading span,
+.subject-row-label span,
+.recent-session p,
+.recent-session time {
+  color: #63708a;
+  font-size: 0.8rem;
+}
+
+.subject-breakdown,
+.recent-sessions {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.subject-row-label strong {
+  font-size: 0.9rem;
+}
+
+.subject-bar {
+  height: 0.45rem;
+  margin-top: 0.45rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e3e8f2;
+}
+
+.subject-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #315bd6;
+}
+
+.recent-session + .recent-session {
+  border-top: 1px solid #e3e8f2;
+  padding-top: 1rem;
+}
+
+.recent-session h3,
+.recent-session p {
+  margin: 0;
+}
+
+.recent-session h3 {
+  font-size: 0.9rem;
+}
+
+.recent-session p {
+  margin-top: 0.25rem;
+}
+
+.recent-session-details {
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  font-size: 0.85rem;
+}
+
+.dashboard-empty-state {
+  margin-top: 2rem;
+  border: 1px dashed #ccd4e3;
+  border-radius: 0.8rem;
+  padding: 3rem 1.5rem;
+  color: #63708a;
+  background: #f9faff;
+  text-align: center;
+}
+
+.dashboard-empty-state h2,
+.dashboard-empty-state p {
+  margin: 0;
+}
+
+.dashboard-empty-state h2 {
+  color: #172033;
+  font-size: 1.25rem;
+}
+
+.dashboard-empty-state p {
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 720px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -353,5 +506,20 @@ select {
 
   .session-card-heading {
     flex-direction: column;
+  }
+
+  .dashboard-stats,
+  .dashboard-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1050px) {
+  .dashboard-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-columns {
+    grid-template-columns: 1fr;
   }
 }

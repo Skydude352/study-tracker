@@ -30,3 +30,15 @@ export function formatDuration(totalSeconds: number): string {
 
   return parts.join(' ')
 }
+
+export function formatStudyTime(totalSeconds: number): string {
+  const safeSeconds = Math.max(0, Math.floor(totalSeconds))
+  const hours = Math.floor(safeSeconds / 3600)
+  const minutes = Math.floor((safeSeconds % 3600) / 60)
+
+  if (hours === 0) {
+    return minutes > 0 ? `${minutes}m` : safeSeconds > 0 ? '<1m' : '0m'
+  }
+
+  return `${hours}h ${minutes.toString().padStart(2, '0')}m`
+}

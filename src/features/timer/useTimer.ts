@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { saveStudySession } from '../../data/storage'
-import type { StudySession } from '../../types/studySession'
+import type {
+  StudySession,
+  StudySessionDetails,
+} from '../../types/studySession'
 import type { TimerState, UseTimerResult } from './timerTypes'
 
 const initialTimerState: TimerState = {
@@ -11,7 +14,9 @@ const initialTimerState: TimerState = {
 }
 
 function createSessionId(): string {
-  return crypto.randomUUID()
+  return typeof crypto.randomUUID === 'function'
+    ? crypto.randomUUID()
+    : `session-${Date.now()}-${Math.random().toString(16).slice(2)}`
 }
 
 export function useTimer(): UseTimerResult {
@@ -93,7 +98,7 @@ export function useTimer(): UseTimerResult {
     }))
   }, [timerState.isPaused, timerState.isRunning])
 
-  const stop = useCallback((): StudySession | null => {
+  const stop = useCallback((details: StudySessionDetails): StudySession | null => {
     if (!timerState.isRunning || !timerState.startTime) {
       return null
     }
@@ -102,10 +107,10 @@ export function useTimer(): UseTimerResult {
     const timestamp = stoppedAt.toISOString()
     const session: StudySession = {
       id: createSessionId(),
-      title: 'Untitled Study Session',
-      subject: '',
-      topic: '',
-      notes: '',
+      title: details.title.trim() || 'Untitled Study Session',
+      subject: details.subject.trim(),
+      topic: details.topic.trim(),
+      notes: details.notes.trim(),
       startTime: timerState.startTime,
       endTime: timestamp,
       durationSeconds: Math.floor(getCurrentElapsedMilliseconds() / 1000),

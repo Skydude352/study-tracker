@@ -1,4 +1,7 @@
-import type { StudySession } from '../../types/studySession'
+import type {
+  StudySession,
+  StudySessionDetails,
+} from '../../types/studySession'
 
 export type TimerState = {
   startTime: string | null
@@ -18,6 +21,6 @@ export type UseTimerResult = TimerState & {
   start: () => void
   pause: () => void
   resume: () => void
-  stop: () => StudySession | null
+  stop: (details: StudySessionDetails) => StudySession | null
   lastCompletedSession: StudySession | null
 }

@@ -14,6 +14,11 @@ export type StudySession = {
   updatedAt: string
 }
 
+export type StudySessionDetails = Pick<
+  StudySession,
+  'title' | 'subject' | 'topic' | 'notes'
+>
+
 export type StudySessionUpdates = Partial<
   Omit<StudySession, 'id' | 'createdAt' | 'updatedAt'>
 >

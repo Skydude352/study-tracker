@@ -1,16 +1,37 @@
-import { mockStudySessions } from '../data/mockData'
-import { getStudySessions } from '../data/storage'
+import { useState } from 'react'
 import {
-  formatSessionDate,
-  formatSessionDuration,
-  sortSessionsByNewest,
-} from '../features/sessions/sessionUtils'
+  deleteStudySession,
+  getStudySessions,
+  updateStudySession,
+} from '../data/storage'
+import SessionList from '../features/sessions/SessionList'
+import { sortSessionsByNewest } from '../features/sessions/sessionUtils'
+import type { StudySessionDetails } from '../types/studySession'
 
 function SessionsPage() {
-  const storedSessions = getStudySessions()
-  const sessions = sortSessionsByNewest(
-    storedSessions.length > 0 ? storedSessions : mockStudySessions,
+  const [sessions, setSessions] = useState(() =>
+    sortSessionsByNewest(getStudySessions()),
   )
+
+  const handleDelete = (sessionId: string) => {
+    if (deleteStudySession(sessionId)) {
+      setSessions((currentSessions) =>
+        currentSessions.filter(({ id }) => id !== sessionId),
+      )
+    }
+  }
+
+  const handleEdit = (sessionId: string, details: StudySessionDetails) => {
+    const updatedSession = updateStudySession(sessionId, details)
+
+    if (updatedSession) {
+      setSessions((currentSessions) =>
+        currentSessions.map((session) =>
+          session.id === sessionId ? updatedSession : session,
+        ),
+      )
+    }
+  }
 
   return (
     <section className="page">
@@ -18,28 +39,11 @@ function SessionsPage() {
       <h1>Sessions</h1>
       <p>Review your completed study sessions and recent activity here.</p>
 
-      {sessions.length > 0 ? (
-        <ul>
-          {sessions.map((session) => (
-            <li key={session.id}>
-              <article>
-                <h2>{session.title}</h2>
-                <p>
-                  {session.subject} · {session.topic}
-                </p>
-                <p>
-                  {formatSessionDate(session.startTime)} ·{' '}
-                  {formatSessionDuration(session.durationSeconds)} ·{' '}
-                  {session.mode === 'pomodoro' ? 'Pomodoro' : 'Normal'}
-                </p>
-                {session.notes && <p>{session.notes}</p>}
-              </article>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No study sessions yet. Completed sessions will appear here.</p>
-      )}
+      <SessionList
+        sessions={sessions}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+      />
     </section>
   )
 }

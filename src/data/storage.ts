@@ -3,7 +3,7 @@ import type {
   StudySessionUpdates,
 } from '../types/studySession'
 
-const STUDY_SESSIONS_STORAGE_KEY = 'study-tracker:sessions'
+export const STUDY_SESSIONS_STORAGE_KEY = 'study-tracker:sessions'
 
 function isStudySession(value: unknown): value is StudySession {
   if (!value || typeof value !== 'object') {
@@ -21,6 +21,8 @@ function isStudySession(value: unknown): value is StudySession {
     typeof session.startTime === 'string' &&
     typeof session.endTime === 'string' &&
     typeof session.durationSeconds === 'number' &&
+    Number.isFinite(session.durationSeconds) &&
+    session.durationSeconds >= 0 &&
     (session.mode === 'normal' || session.mode === 'pomodoro') &&
     typeof session.createdAt === 'string' &&
     typeof session.updatedAt === 'string'

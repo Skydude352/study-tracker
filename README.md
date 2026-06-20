@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL shown in the terminal (usually `http://localhost:5173`).
+Open the local URL shown in the terminal.
 
 ## Available scripts
 
@@ -19,20 +19,3 @@ Open the local URL shown in the terminal (usually `http://localhost:5173`).
 - `npm run build` checks TypeScript and creates a production build.
 - `npm run typecheck` checks TypeScript without creating files.
 - `npm run preview` previews the production build locally.
-
-## Project structure
-
-```text
-study-tracker/
-├── src/
-│   ├── app/
-│   │   └── App.tsx
-│   ├── index.css
-│   └── main.tsx
-├── .gitignore
-├── index.html
-├── package.json
-├── package-lock.json
-├── tsconfig.json
-└── vite.config.ts
-```
